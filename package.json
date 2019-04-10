@@ -1,0 +1,22 @@
+{
+  "name": "discord.js-reaction-menu",
+  "version": "1.0.0",
+  "description": "Discord.js reaction menu",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juby210-PL/discord.js-reaction-menu.git"
+  },
+  "author": "Juby210",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/juby210-PL/discord.js-reaction-menu/issues"
+  },
+  "homepage": "https://github.com/juby210-PL/discord.js-reaction-menu#readme",
+  "dependencies": {
+    "discord.js": "^11.4.2"
+  }
+}
