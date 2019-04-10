@@ -1,7 +1,7 @@
 # discord.js-reaction-menu
 Discord.js reaction menu
 
-`npm i juby210-PL/discord.js-reaction-menu#master`
+`npm i discord.js-reaction-menu`
 
 ## Usage
 ```js
