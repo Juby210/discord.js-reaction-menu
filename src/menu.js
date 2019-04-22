@@ -37,8 +37,11 @@ module.exports = class Menu {
             this.msg.clearReactions();
         });
     }
-    addReactions() {
-        this.msg.react(this.reactions.first).then(() => this.msg.react(this.reactions.back).then(() => this.msg.react(this.reactions.next).then(() =>
-            this.msg.react(this.reactions.last).then(() => this.msg.react(this.reactions.stop)))));
+    async addReactions() {
+        if(this.reactions.first) await this.msg.react(this.reactions.first);
+        if(this.reactions.back)  await this.msg.react(this.reactions.back);
+        if(this.reactions.next)  await this.msg.react(this.reactions.next);
+        if(this.reactions.last)  await this.msg.react(this.reactions.last);
+        if(this.reactions.stop)  await this.msg.react(this.reactions.stop);
     }
 }
