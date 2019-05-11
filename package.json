@@ -1,6 +1,6 @@
 {
   "name": "discord.js-reaction-menu",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Discord.js reaction menu",
   "main": "src/index.js",
   "scripts": {
