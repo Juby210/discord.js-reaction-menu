@@ -1,26 +1,5 @@
 package-lock.json
 node_modules/
-*.bat
+pnpm-lock.yaml
 .vscode/launch.json
 .idea
-
-# ----------------------------------- #
-# ----- Language Gitignore ----- #
-# ----------------------------------- #
-
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.war
-*.ear
-*.zip
-*.tar.gz
-*.rar
-*.7z

@@ -1,6 +1,7 @@
-const Discord = require('discord.js');
+const { TextChannel } = require('discord.js')
+
 module.exports = class Menu {
-    constructor(channel = new Discord.TextChannel(), uid, pages = [], time = 120000, reactions = {first: '⏪', back: '◀', next: '▶', last: '⏩', stop: '⏹'}) {
+    constructor(channel = new TextChannel(), uid, pages = [], time = 120000, reactions = {first: '⏪', back: '◀', next: '▶', last: '⏩', stop: '⏹'}) {
         this.channel = channel;
         this.pages = pages;
         this.time = time;
@@ -17,7 +18,7 @@ module.exports = class Menu {
         this.msg.edit(this.pages[pg-1]);
     }
     createCollector(uid) {
-        const collector = this.msg.createReactionCollector((r, u) => u.id == uid, {time: this.time});
+        const collector = this.msg.createReactionCollector((r, u) => u.id == uid, { time: this.time })
         this.collector = collector;
         collector.on('collect', r => {
             if(r.emoji.name == this.reactions.first) {
@@ -31,11 +32,11 @@ module.exports = class Menu {
             } else if(r.emoji.name == this.reactions.stop) {
                 collector.stop();
             }
-            r.remove(uid);
-        });
+            r.users.remove(uid)
+        })
         collector.on('end', () => {
-            this.msg.clearReactions();
-        });
+            this.msg.reactions.removeAll()
+        })
     }
     async addReactions() {
         if(this.reactions.first) await this.msg.react(this.reactions.first);

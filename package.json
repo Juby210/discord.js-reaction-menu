@@ -1,6 +1,6 @@
 {
   "name": "discord.js-reaction-menu",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Discord.js reaction menu",
   "main": "src/index.js",
   "scripts": {
@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/juby210-PL/discord.js-reaction-menu#readme",
   "dependencies": {
-    "discord.js": "^11.4.2"
+    "discord.js": "^12.0.2"
   }
 }
