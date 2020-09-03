@@ -1,4 +1,3 @@
-module.exports = {
-    menu: require('./menu'),
-    reactions: { first: '⏪', back: '◀', next: '▶', last: '⏩', stop: '⏹' }
-}
+const menu = require('./menu')
+
+module.exports = { menu, reactions: menu.defaultReactions }

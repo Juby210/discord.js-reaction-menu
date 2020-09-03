@@ -1,21 +1,25 @@
 const { TextChannel } = require('discord.js')
 
 module.exports = class Menu {
-    constructor(channel = new TextChannel(), uid, pages = [], time = 120000, reactions = {first: '⏪', back: '◀', next: '▶', last: '⏩', stop: '⏹'}) {
-        this.channel = channel;
-        this.pages = pages;
-        this.time = time;
-        this.reactions = reactions;
-        this.page = 1;
+    static defaultReactions = { first: '⏪', back: '◀', next: '▶', last: '⏩', stop: '⏹' }
+
+    constructor(opts = {}) {
+        const { channel = new TextChannel, userID, pages = [], time = 120000, reactions = Menu.defaultReactions, customCatch = console.error } = opts
+        this.channel = channel
+        this.pages = pages
+        this.time = time
+        this.reactions = reactions
+        this.page = 1
+        this.catch = customCatch
         channel.send(pages[0]).then(msg => {
-            this.msg = msg;
-            this.addReactions();
-            this.createCollector(uid);
-        });
+            this.msg = msg
+            this.addReactions()
+            this.createCollector(userID)
+        }).catch(customCatch)
     }
     select(pg = 1) {
-        this.page = pg;
-        this.msg.edit(this.pages[pg-1]);
+        this.page = pg
+        this.msg.edit(this.pages[pg - 1]).catch(this.catch)
     }
     createCollector(uid) {
         const collector = this.msg.createReactionCollector((r, u) => u.id == uid, { time: this.time })
@@ -32,17 +36,21 @@ module.exports = class Menu {
             } else if(r.emoji.name == this.reactions.stop) {
                 collector.stop();
             }
-            r.users.remove(uid)
+            r.users.remove(uid).catch(this.catch)
         })
         collector.on('end', () => {
             this.msg.reactions.removeAll()
         })
     }
     async addReactions() {
-        if(this.reactions.first) await this.msg.react(this.reactions.first);
-        if(this.reactions.back)  await this.msg.react(this.reactions.back);
-        if(this.reactions.next)  await this.msg.react(this.reactions.next);
-        if(this.reactions.last)  await this.msg.react(this.reactions.last);
-        if(this.reactions.stop)  await this.msg.react(this.reactions.stop);
+        try {
+            if (this.reactions.first) await this.msg.react(this.reactions.first)
+            if (this.reactions.back)  await this.msg.react(this.reactions.back)
+            if (this.reactions.next)  await this.msg.react(this.reactions.next)
+            if (this.reactions.last)  await this.msg.react(this.reactions.last)
+            if (this.reactions.stop)  await this.msg.react(this.reactions.stop)
+        } catch (e) {
+            this.catch(e)
+        }
     }
 }
