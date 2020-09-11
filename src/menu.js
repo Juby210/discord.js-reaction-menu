@@ -30,14 +30,14 @@ module.exports = class Menu {
             } else if (r.emoji.name == this.reactions.back) {
                 if (this.page != 0) this.select(this.page - 1)
             } else if (r.emoji.name == this.reactions.next) {
-                if (this.page < this.pages.length) this.select(this.page + 1)
+                if (this.page < this.pages.length - 1) this.select(this.page + 1)
             } else if (r.emoji.name == this.reactions.last) {
                 if (this.page != this.pages.length) this.select(this.pages.length - 1)
             } else if (r.emoji.name == this.reactions.stop) collector.stop()
             r.users.remove(uid).catch(this.catch)
         })
         collector.on('end', () => {
-            this.msg.reactions.removeAll()
+            this.msg.reactions.removeAll().catch(this.catch)
         })
     }
     async addReactions() {
