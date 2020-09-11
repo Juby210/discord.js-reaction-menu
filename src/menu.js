@@ -25,17 +25,15 @@ module.exports = class Menu {
         const collector = this.msg.createReactionCollector((r, u) => u.id == uid, { time: this.time })
         this.collector = collector;
         collector.on('collect', r => {
-            if(r.emoji.name == this.reactions.first) {
-                if(this.page != 1) this.select(0);
-            } else if(r.emoji.name == this.reactions.back) {
-                if(this.page != 1) this.select(this.page - 1);
-            } else if(r.emoji.name == this.reactions.next) {
-                if(this.page != this.pages.length) this.select(this.page + 1);
-            } else if(r.emoji.name == this.reactions.last) {
-                if(this.page != this.pages.length) this.select(this.pages.length);
-            } else if(r.emoji.name == this.reactions.stop) {
-                collector.stop();
-            }
+            if (r.emoji.name == this.reactions.first) {
+                if (this.page != 0) this.select(0)
+            } else if (r.emoji.name == this.reactions.back) {
+                if (this.page != 0) this.select(this.page - 1)
+            } else if (r.emoji.name == this.reactions.next) {
+                if (this.page < this.pages.length) this.select(this.page + 1)
+            } else if (r.emoji.name == this.reactions.last) {
+                if (this.page != this.pages.length) this.select(this.pages.length - 1)
+            } else if (r.emoji.name == this.reactions.stop) collector.stop()
             r.users.remove(uid).catch(this.catch)
         })
         collector.on('end', () => {
