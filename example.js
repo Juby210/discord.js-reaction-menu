@@ -1,8 +1,8 @@
-const { Client, MessageEmbed } = require('discord.js')
+const { Client, MessageEmbed, Intents } = require('discord.js')
 const rm = require('./src/index')
-const client = new Client()
+const client = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS]})
 
-client.on('message', message => {
+client.on('messageCreate', message => {
     if(message.content == '!test') {
         // rm.reactions.back = '👈'
         // rm.reactions.next = '👉'
