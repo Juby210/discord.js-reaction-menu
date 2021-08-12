@@ -11,7 +11,7 @@ module.exports = class Menu {
         this.reactions = reactions
         this.page = page
         this.catch = customCatch
-        channel.send(pages[page]).then(msg => {
+        channel.send({ embeds: [pages[page]] }).then(msg => {
             this.msg = msg
             this.addReactions()
             this.createCollector(userID)
@@ -19,10 +19,10 @@ module.exports = class Menu {
     }
     select(pg = 0) {
         this.page = pg
-        this.msg.edit(this.pages[pg]).catch(this.catch)
+        this.msg.edit({ embeds: [this.pages[pg]] }).catch(this.catch)
     }
     createCollector(uid) {
-        const collector = this.msg.createReactionCollector((r, u) => u.id == uid, { time: this.time })
+        const collector = this.msg.createReactionCollector({filter: (r, u) => u.id == uid, time: this.time })
         this.collector = collector;
         collector.on('collect', r => {
             if (r.emoji.name == this.reactions.first) {
